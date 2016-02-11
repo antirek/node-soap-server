@@ -9,7 +9,8 @@ function MyTestService(){
 }
 
 MyTestService.prototype.test2 = function(myArg1, myArg2){
-	return myArg1 + myArg2;
+	console.log('args:', myArg1, myArg2);
+	return myArg1 + ', ' + myArg2;
 };
 
 
