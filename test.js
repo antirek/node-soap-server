@@ -1,24 +1,27 @@
 
 var soap = require('./lib/soap-server');
 
-
-
-
-
-function MyTestService(){
+function MyTestObject(){
 }
+MyTestObject.prototype.strArg = '';
 
-MyTestService.prototype.test2 = function(myArg1, myArg2){
-	console.log('args:', myArg1, myArg2);
-	return myArg1 + ', ' + myArg2;
+
+var MyTestService = function () {
+	return {
+		test2: function (myTestObjectInstance) {
+			console.log('allo:', myTestObjectInstance);			
+			return 10;
+		}
+	};
 };
 
 
 var soapServer = new soap.SoapServer();
 var soapService = soapServer.addService('test', new MyTestService());
 
+var test2operation = soapService.getOperation('test2');
+test2operation.setInputType('myTestObjectInstance', MyTestObject);
+test2operation.setOutputType('number');
 
-
-
-soapServer.listen(1337, '127.0.0.1');
+soapServer.listen(1337);
 console.log('Server running at http://127.0.0.1:1337/');
